@@ -5,7 +5,7 @@ permalink: /
 title: "Scaling Robot Policy Learning via Zero-Shot Labeling with Foundation Models"
 authors: Anonymous Author(s)
 affiliations: Affiliation
-# paper: 
+paper: https://openreview.net/forum?id=EdVNB2kHv1
 # video: 
 # code: 
 # data: 
