@@ -38,3 +38,32 @@ in a zero-shot manner using an ensemble of pretrained expert models. NILS consis
  - all relevant objects in the video are detected
  - object-centric changes are detected and collected
  - object change information is used to detect keystates and an LLM is prompted to generate a language label for the task
+
+<!-- ## 4 Columns
+
+<div class="columns">
+    <div class="column is-one-quarter">
+        <h3>Heading 1</h3>
+        <video autoplay controls>
+            <source src="movie.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="column is-one-quarter">
+        <h3>Heading 2</h3>
+        <video autoplay controls>
+            <source src="movie.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="column is-one-quarter">
+        <h3>Heading 3</h3>
+        <video autoplay controls>
+            <source src="movie.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="column is-one-quarter">
+        <h3>Heading 4</h3>
+        <video autoplay controls>
+            <source src="movie.mp4" type="video/mp4">
+        </video>
+    </div>
+</div> -->

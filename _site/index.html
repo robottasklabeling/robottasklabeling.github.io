@@ -67,6 +67,16 @@
             <div class="publication-links">
               <!-- PDF Link. -->
               
+              <span class="link-block">
+                <a href="https://openreview.net/forum?id=EdVNB2kHv1"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              
               <!-- Video Link. -->
               
               <!-- Code Link. -->
@@ -95,7 +105,7 @@
     <div class="column is-four-fifths">
         <h2>Abstract</h2>
         <div class="content has-text-justified">
-A central challenge towards developing robots that can relate human language to their perception and actions is the scarcity of natural language annotations in diverse robot datasets. Moreover, robot policies that follow natural language instructions are typically trained on either templated language or expensive human-labeled instructions, hindering their scalability. To this end, we introduce a novel approach to automatically label uncurated, long-horizon robot teleoperation data at scale in a zero-shot manner without any human intervention. We utilize a combination of pre-trained vision-language foundation models to detect objects in a scene, detect object-centric changes, segment tasks from large datasets of unlabelled interaction data and then train language-conditioned policies on the relabeled datasets. Our experiments on dataset show that our method enables annotating diverse robot demonstrations and thus scaling training language-conditioned policies on unlabeled and unstructured datasets that match ones trained with oracle human annotations.
+A central challenge towards developing robots that can relate human language to their perception and actions is the scarcity of natural language annotations in diverse robot datasets. Moreover, robot policies that follow natural language instructions are typically trained on either templated language or expensive human-labeled instructions, hindering their scalability. To this end, we introduce <b>NILS</b>: <b>N</b>atural language <b>I</b>nstruction <b>L</b>abeling for <b>S</b>calability. NILS automatically labels uncurated, long-horizon robot data at scale in a zero-shot manner without any human intervention. NILS combines pre-trained vision-language foundation models in a sophisticated, carefully considered manner in order to detect objects in a scene, detect object-centric changes, segment tasks from large datasets of unlabelled interaction data and ultimately label behavior datasets. Evaluations on BridgeV2 and a kitchen play dataset show that NILS is able to autonomously annotate diverse robot demonstrations of unlabeled and unstructured datasets, while alleviating several shortcomings of crowdsourced human annotations.
         </div>
     </div>
 </div>
@@ -114,6 +124,35 @@ in a zero-shot manner using an ensemble of pretrained expert models. NILS consis
   <li>object-centric changes are detected and collected</li>
   <li>object change information is used to detect keystates and an LLM is prompted to generate a language label for the task</li>
 </ul>
+
+<!-- ## 4 Columns
+
+<div class="columns">
+    <div class="column is-one-quarter">
+        <h3>Heading 1</h3>
+        <video autoplay controls>
+            <source src="movie.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="column is-one-quarter">
+        <h3>Heading 2</h3>
+        <video autoplay controls>
+            <source src="movie.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="column is-one-quarter">
+        <h3>Heading 3</h3>
+        <video autoplay controls>
+            <source src="movie.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="column is-one-quarter">
+        <h3>Heading 4</h3>
+        <video autoplay controls>
+            <source src="movie.mp4" type="video/mp4">
+        </video>
+    </div>
+</div> -->
 
 </div>
 
