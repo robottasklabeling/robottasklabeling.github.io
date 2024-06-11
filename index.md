@@ -39,6 +39,90 @@ in a zero-shot manner using an ensemble of pretrained expert models. NILS consis
  - object-centric changes are detected and collected
  - object change information is used to detect keystates and an LLM is prompted to generate a language label for the task
 
+ <!-- <div class="video-container">
+    <div class="video-header">
+        <h3>View a Random Trajectory</h3>
+        <div id="sample-button" class="replay">
+            <img src="icons/replay.svg">
+            <div>Sample</div>
+        </div>
+    </div>
+    <div class="video-grid lang">
+        <div class="method">Language Annotation</div>
+        <div class="method">Initial</div>
+        <div class="method">Final</div>
+        <div class="task" id="annotation">closed the drawer</div>
+        <div class="video"><img id="first_image" src="https://rail.eecs.berkeley.edu/datasets/bridge_release/raw/bridge_data_v2/datacol2_toykitchen7/drawer_pnp/10/2023-04-20_09-24-10/raw/traj_group0/traj29/images0/im_0.jpg"></div>
+        <div class="video"><img id="last_image" src="https://rail.eecs.berkeley.edu/datasets/bridge_release/raw/bridge_data_v2/datacol2_toykitchen7/drawer_pnp/10/2023-04-20_09-24-10/raw/traj_group0/traj29/images0/im_37.jpg"></div>
+    </div>
+</div> -->
+
+<!-- <script>
+    // replay button animation
+    new Image().src = 'icons/replay.svg' // preload
+
+    const playButtons = document.querySelectorAll('.play-button');
+    playButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            button.parentElement.parentElement.querySelectorAll('video').forEach((video) => {
+                try {
+                    video.fastSeek(0);
+                } catch (error) {
+                    video.currentTime = 0;
+                }
+                video.play();
+            });
+            const img = button.querySelector('img');
+            img.src = 'icons/replay.svg';
+
+            const text = button.querySelector('div');
+            text.innerText = 'Replay';
+
+            button.classList.remove('replay');
+            void button.offsetWidth;
+            button.classList.add('replay');
+        });
+    });
+
+    // View Random Trajectory Widget
+    var trajLinks;
+    fetch("traj_links.csv")
+        .then(response => response.text())
+        .then(text => trajLinks = text.split(/\r\n|\n/))
+        .then(sample);
+
+    const prefix = "https://rail.eecs.berkeley.edu/datasets/bridge_release/";
+    const firstImage = document.querySelector("#first_image");
+    const lastImage = document.querySelector("#last_image");
+    const annotation = document.querySelector("#annotation");
+    function sample() {
+        if (typeof trajLinks === 'undefined') return;
+
+        firstImage.src = 'icons/dots.jpg';
+        lastImage.src = 'icons/dots.jpg';
+        annotation.innerText = 'loading...';
+
+        const index = Math.floor(Math.random() * trajLinks.length);
+        const links = trajLinks[index].split(",");
+
+        firstImage.src = prefix + links[0];
+        lastImage.src = prefix + links[1];
+        annotation.innerText = links[2];
+    }
+
+    const sampleButton = document.querySelector('#sample-button');
+    sampleButton.addEventListener('click', () => {
+        if (firstImage.src.includes('dots.jpg') || lastImage.src.includes('dots.jpg')) return;
+
+        sample();
+
+        sampleButton.classList.remove('replay');
+        void sampleButton.offsetWidth;
+        sampleButton.classList.add('replay');
+    });
+</script> -->
+
+
 <!-- ## 4 Columns
 
 <div class="columns">
