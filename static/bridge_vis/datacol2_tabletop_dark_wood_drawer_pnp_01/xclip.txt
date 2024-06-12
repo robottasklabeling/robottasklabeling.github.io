@@ -1,0 +1,5 @@
+Keystate: 8 - Annotation: ['removed the green thing from the drawer and placed it on the left side of the table.', 'close the drawer', 'close the drawer']
+Keystate: 20 - Annotation: ['removed the green thing from the drawer and placed it on the left side of the table.', 'close the drawer', 'close the drawer']
+Keystate: 32 - Annotation: ['removed the green thing from the drawer and placed it on the left side of the table.', 'close the drawer', 'close the drawer']
+Keystate: 40 - Annotation: ['removed the green thing from the drawer and placed it on the left side of the table.', 'close the drawer', 'close the drawer']
+Keystate: 52 - Annotation: ['removed the green thing from the drawer and placed it on the left side of the table.', 'close the drawer', 'close the drawer']

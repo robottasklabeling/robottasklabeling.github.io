@@ -1,0 +1,7 @@
+Keystate: 4 - Annotation: ['Open the wooden drawer', 'Close the wooden drawer', 'Check if the wooden drawer is open', 'Move the wooden drawer to the left.']
+Keystate: 13 - Annotation: ['Pick up the key', 'Move the key away from the towel and drawer', 'Relocate the key to a different location', 'Place the key on the table.']
+Keystate: 22 - Annotation: ['Place the towel on top of the drawer', 'Move the towel forward and to the left until it is on top of the drawer', 'Position the towel over the drawer and release it', 'Cover the drawer with the towel.']
+Keystate: 31 - Annotation: ['Move the banana to a different location near the dog toy', 'Pick up the banana and place it back down next to the dog toy', 'Rotate the banana around its axis while keeping it next to the dog toy']
+Keystate: 36 - Annotation: ['Place the drawer next to the key and towel', 'Move the key closer to the drawer', 'Add a tag to the key indicating its relation to the drawer', 'Relocate the key to be next to both the towel and the drawer.']
+Keystate: 44 - Annotation: ['Open the wooden drawer and place the drawer inside', 'Lift the wooden drawer and insert the drawer into it', 'Slide the wooden drawer open and position the drawer inside', 'Close the wooden drawer after placing the drawer inside.']
+Keystate: 52 - Annotation: ['Open the drawer', 'Close the drawer', 'Slide the drawer open to the left', 'Move the drawer to the right and close it']
