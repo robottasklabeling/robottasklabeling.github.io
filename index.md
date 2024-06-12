@@ -123,31 +123,31 @@ in a zero-shot manner using an ensemble of pretrained expert models. NILS consis
 </script> -->
 
 
-<!-- ## 4 Columns
+## 4 Columns
 
 <div class="columns">
     <div class="column is-one-quarter">
         <h3>Heading 1</h3>
         <video autoplay controls>
-            <source src="movie.mp4" type="video/mp4">
+            <source src="./static/bridge_vis/datacol1_toykitchen1_many_skills_0/all_gt_ks.mp4" type="video/mp4">
         </video>
     </div>
     <div class="column is-one-quarter">
         <h3>Heading 2</h3>
         <video autoplay controls>
-            <source src="movie.mp4" type="video/mp4">
+            <source src="./static/bridge_vis/datacol1_toykitchen1_many_skills_0/gpt4v.mp4" type="video/mp4">
         </video>
     </div>
     <div class="column is-one-quarter">
         <h3>Heading 3</h3>
         <video autoplay controls>
-            <source src="movie.mp4" type="video/mp4">
+            <source src="/static/bridge_vis/datacol1_toykitchen1_many_skills_0/gemini_pro.mp4.mp4" type="video/mp4">
         </video>
     </div>
     <div class="column is-one-quarter">
         <h3>Heading 4</h3>
         <video autoplay controls>
-            <source src="movie.mp4" type="video/mp4">
+            <source src="/static/bridge_vis/datacol1_toykitchen1_many_skills_0/all.mp4" type="video/mp4">
         </video>
     </div>
-</div> -->
+</div>
