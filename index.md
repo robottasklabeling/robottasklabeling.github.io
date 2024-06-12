@@ -125,29 +125,73 @@ in a zero-shot manner using an ensemble of pretrained expert models. NILS consis
 
 ## 4 Columns
 
+<button id="next-button">Next</button>
+<button id="prev-button">Previous</button>
+
 <div class="columns">
     <div class="column is-one-quarter">
         <h3>Heading 1</h3>
-        <video autoplay controls>
-            <source src="./static/bridge_vis/datacol1_toykitchen1_many_skills_0/all_gt_ks.mp4" type="video/mp4">
+        <video autoplay controls id="first_video">
+            <source src="" type="video/mp4">
         </video>
     </div>
     <div class="column is-one-quarter">
         <h3>Heading 2</h3>
-        <video autoplay controls>
-            <source src="./static/bridge_vis/datacol1_toykitchen1_many_skills_0/gpt4v.mp4" type="video/mp4">
+        <video autoplay controls id="second_video">
+            <source src="" type="video/mp4">
         </video>
     </div>
     <div class="column is-one-quarter">
         <h3>Heading 3</h3>
-        <video autoplay controls>
-            <source src="/static/bridge_vis/datacol1_toykitchen1_many_skills_0/gemini_pro.mp4.mp4" type="video/mp4">
+        <video autoplay controls id="third_video">
+            <source src="" type="video/mp4">
         </video>
     </div>
     <div class="column is-one-quarter">
         <h3>Heading 4</h3>
-        <video autoplay controls>
-            <source src="/static/bridge_vis/datacol1_toykitchen1_many_skills_0/all.mp4" type="video/mp4">
+        <video autoplay controls id="fourth_video">
+            <source src="" type="video/mp4">
         </video>
     </div>
 </div>
+
+
+
+<!-- <script>    
+
+    const response = await fetch('path/to/valid_paths.txt');
+    const text = await response.text();
+
+    const videoGroups = text.split(';');
+
+    let currentGroupIndex = 0;
+
+    const first_vid_container = document.querySelector('#first_video');
+    const second_vid_container = document.querySelector('#second_video');
+    const third_vid_container = document.querySelector('#third_video');
+    const fourth_vid_container = document.querySelector('#fourth_video');
+
+    function displayVideos(groupIndex) {
+
+        const group = videoGroups[groupIndex].split(',');
+        first_vid_container.src = group[0];
+        second_vid_container.src = group[1];
+        third_vid_container.src = group[2];
+        fourth_vid_container.src = group[3];
+    }
+
+    document.getElementById('prev-button').addEventListener('click', () => {
+        currentGroupIndex = (currentGroupIndex - 1 + videoGroups.length) % videoGroups.length;
+        displayVideoGroup(currentGroupIndex);
+    });
+
+
+    document.getElementById('next-button').addEventListener('click', () => {
+        currentGroupIndex = (currentGroupIndex + 1) % videoGroups.length;
+        displayVideoGroup(currentGroupIndex);
+    });
+
+    displayVideoGroup(currentGroupIndex);
+
+
+</script> -->
