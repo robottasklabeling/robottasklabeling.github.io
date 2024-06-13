@@ -1,0 +1,5 @@
+Keystate: 8 - Annotation: ['Move the brown stuffed animal to the left', 'Move the brown stuffed animal 26 pixels backward', 'Pick up the brown stuffed animal and place it on the table', 'Move the brown stuffed animal to the center of the room']
+Keystate: 20 - Annotation: ['Place the blue block inside the red box', ' Put the blue block into the red container', ' Move the blue block into the red box']
+Keystate: 32 - Annotation: ['Open the wooden drawer', 'Pull the wooden drawer open', 'Access the contents of the wooden drawer by opening it', 'Locate the item inside the wooden drawer by opening it']
+Keystate: 40 - Annotation: ['Close the wooden drawer', 'Shut the wooden drawer', 'Pull the wooden drawer shut', 'Slide the wooden drawer closed']
+Keystate: 52 - Annotation: ['Open the red box', ' Lift the lid of the red box', ' Raise the cover of the red container']

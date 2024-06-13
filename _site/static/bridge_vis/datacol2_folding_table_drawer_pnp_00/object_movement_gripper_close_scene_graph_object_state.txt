@@ -1,0 +1,5 @@
+Keystate: 20 - Annotation: ['Open the box', 'Lift the lid of the box', 'Slide the lid of the box open', 'Push the button to open the box']
+Keystate: 44 - Annotation: ['Remove the wooden drawer from the box', 'Move the wooden drawer to the left side of the table', 'Open the wooden drawer', 'Place the wooden drawer on the floor.']
+Keystate: 84 - Annotation: ['Open the box', 'Unlatch the box', 'Lift the lid of the box', 'Access the contents of the box.']
+Keystate: 124 - Annotation: ['Take the wooden drawer out of the box and place it on top of the box', 'Lift the wooden drawer from inside the box and set it on top of the box', 'Remove the wooden drawer from the box and position it on top of the box', 'Extract the wooden drawer from the box and place it atop the box.']
+Keystate: 159 - Annotation: ['Close the box', 'Shut the box', 'Seal the box', 'Secure the box']

@@ -39,159 +39,259 @@ in a zero-shot manner using an ensemble of pretrained expert models. NILS consis
  - object-centric changes are detected and collected
  - object change information is used to detect keystates and an LLM is prompted to generate a language label for the task
 
- <!-- <div class="video-container">
-    <div class="video-header">
-        <h3>View a Random Trajectory</h3>
-        <div id="sample-button" class="replay">
-            <img src="icons/replay.svg">
-            <div>Sample</div>
-        </div>
-    </div>
-    <div class="video-grid lang">
-        <div class="method">Language Annotation</div>
-        <div class="method">Initial</div>
-        <div class="method">Final</div>
-        <div class="task" id="annotation">closed the drawer</div>
-        <div class="video"><img id="first_image" src="https://rail.eecs.berkeley.edu/datasets/bridge_release/raw/bridge_data_v2/datacol2_toykitchen7/drawer_pnp/10/2023-04-20_09-24-10/raw/traj_group0/traj29/images0/im_0.jpg"></div>
-        <div class="video"><img id="last_image" src="https://rail.eecs.berkeley.edu/datasets/bridge_release/raw/bridge_data_v2/datacol2_toykitchen7/drawer_pnp/10/2023-04-20_09-24-10/raw/traj_group0/traj29/images0/im_37.jpg"></div>
-    </div>
-</div> -->
+<h2>Examples</h2>
 
-<!-- <script>
-    // replay button animation
-    new Image().src = 'icons/replay.svg' // preload
-
-    const playButtons = document.querySelectorAll('.play-button');
-    playButtons.forEach((button) => {
-        button.addEventListener('click', () => {
-            button.parentElement.parentElement.querySelectorAll('video').forEach((video) => {
-                try {
-                    video.fastSeek(0);
-                } catch (error) {
-                    video.currentTime = 0;
-                }
-                video.play();
-            });
-            const img = button.querySelector('img');
-            img.src = 'icons/replay.svg';
-
-            const text = button.querySelector('div');
-            text.innerText = 'Replay';
-
-            button.classList.remove('replay');
-            void button.offsetWidth;
-            button.classList.add('replay');
-        });
-    });
-
-    // View Random Trajectory Widget
-    var trajLinks;
-    fetch("traj_links.csv")
-        .then(response => response.text())
-        .then(text => trajLinks = text.split(/\r\n|\n/))
-        .then(sample);
-
-    const prefix = "https://rail.eecs.berkeley.edu/datasets/bridge_release/";
-    const firstImage = document.querySelector("#first_image");
-    const lastImage = document.querySelector("#last_image");
-    const annotation = document.querySelector("#annotation");
-    function sample() {
-        if (typeof trajLinks === 'undefined') return;
-
-        firstImage.src = 'icons/dots.jpg';
-        lastImage.src = 'icons/dots.jpg';
-        annotation.innerText = 'loading...';
-
-        const index = Math.floor(Math.random() * trajLinks.length);
-        const links = trajLinks[index].split(",");
-
-        firstImage.src = prefix + links[0];
-        lastImage.src = prefix + links[1];
-        annotation.innerText = links[2];
-    }
-
-    const sampleButton = document.querySelector('#sample-button');
-    sampleButton.addEventListener('click', () => {
-        if (firstImage.src.includes('dots.jpg') || lastImage.src.includes('dots.jpg')) return;
-
-        sample();
-
-        sampleButton.classList.remove('replay');
-        void sampleButton.offsetWidth;
-        sampleButton.classList.add('replay');
-    });
-</script> -->
-
-
-## 4 Columns
-
-<button id="next-button">Next</button>
-<button id="prev-button">Previous</button>
-
-<div class="columns">
-    <div class="column is-one-quarter">
-        <h3>Heading 1</h3>
-        <video autoplay controls id="first_video">
+<div class="columns is-centered has-text-centered">
+    <div class="column is-half" id="nils-video-container">
+        <h4>Video</h4>
+        <video id="nils-video" width="100%" muted playsinline>
             <source src="" type="video/mp4">
         </video>
     </div>
-    <div class="column is-one-quarter">
-        <h3>Heading 2</h3>
-        <video autoplay controls id="second_video">
-            <source src="" type="video/mp4">
-        </video>
-    </div>
-    <div class="column is-one-quarter">
-        <h3>Heading 3</h3>
-        <video autoplay controls id="third_video">
-            <source src="" type="video/mp4">
-        </video>
-    </div>
-    <div class="column is-one-quarter">
-        <h3>Heading 4</h3>
-        <video autoplay controls id="fourth_video">
-            <source src="" type="video/mp4">
-        </video>
+    <div class="column is-half">
+        <h4>Last Keystate</h4>
+        <canvas id="nils-keystate" width="100%" height="100%"></canvas>
     </div>
 </div>
+<div class="columns is-centered has-text-centered">
+    <div class="column">
+        <div class="buttons is-centered">
+            <button id="nils-sample-button" class="button">Sample</button>
+            <button id="nils-play-pause-button" class="button">Play/Pause</button>
+            <!-- <button id="nils-prev-key-button" class="button">Previous Keystate</button>
+            <button id="nils-next-key-button" class="button">Next Keystate</button> -->
+        </div>
+    </div>
+</div>
+<div class="columns is-centered has-text-centered">
+    <div class="column">
+        <h4>Generated Labels</h4>
+        <div id="nils-labels-container"></div>
+    </div>
+</div>
+<style>
+    #nils-labels-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        gap: 1em;
+    }
+    #nils-keystate {
+        width: 100%;
+    }
+</style>
+<script>
 
+const ANNOTATION_TYPES = [
+    'all_gt_ks',
+    'all',
+    'enable_detection_ensemblingenable_object_state_filteringenable_scene_graph_denoisingenable_detection_refinmentenable_object_centric_relations',
+    'enable_temporal_aggregationenable_detection_ensemblingenable_object_state_filteringenable_scene_graph_denoisingenable_detection_refinmentenable_object_centric_relationssimple_initial_object_detection',
+    'enable_temporal_aggregationenable_object_state_filteringenable_scene_graph_denoisingenable_object_centric_relations',
+    'gemini_pro',
+    'gpt4v',
+    'object_movement_gripper_close_scene_graph_object_state'
+]
 
+async function loadPaths() {
+    const response = await fetch('./static/bridge_vis/paths.txt')
+    const data = await response.text()
+    const paths = data.split('\n')
+    return paths
+}
 
-<!-- <script>    
+async function loadAnnotationsAndVideoLinkFromPath(path) {
+    const responses = ANNOTATION_TYPES.map((type) => 
+        fetch(`./static/bridge_vis/${path}/${type}.txt`)
+            .then(response => {
+                if (response.ok) {
+                    return response.text()
+                }
+                return false
+            })
+            .catch(err => false)
+    )
 
-    const response = await fetch('path/to/valid_paths.txt');
-    const text = await response.text();
+    const annotations_list = (await Promise.all(responses))
+        .map((response, index) => response ? [ANNOTATION_TYPES[index], processAnnotation(response)] : null)
+        .filter(item => item)
+    const annotations = Object.fromEntries(annotations_list)
 
-    const videoGroups = text.split(';');
+    const videoLink = `./static/bridge_vis/${path}/orig_conv.mp4`
+    return { annotations, videoLink }
+}
 
-    let currentGroupIndex = 0;
+function processAnnotation(fileContent) {
+    const lines = fileContent.split('\n')
+    const parsedData = lines.map(line => {
+        if (line === '') {
+            return null
+        }
+        const [_, keystate, labels] = line.match(/Keystate: (\d+) - Annotation: (\[.*\])/)
+        sanitized = labels // I hate this, why can't it be proper JSON, why are we using python print output uggh
+            .replace(/\['/g, '["')
+            .replace(/'\]/g, '"]')
+            .replace(/', '/g, '", "')
+            .replace(/", '/g, '", "')
+            .replace(/', "/g, '", "')
+        try {
+            return {
+                keystate: parseInt(keystate),
+                labels: JSON.parse(sanitized)
+            }
+        } catch (e) {
+            console.error(keystate, labels, sanitized, e)
+            throw e
+        }
+    }).filter(item => item)
+    return parsedData
+}
 
-    const first_vid_container = document.querySelector('#first_video');
-    const second_vid_container = document.querySelector('#second_video');
-    const third_vid_container = document.querySelector('#third_video');
-    const fourth_vid_container = document.querySelector('#fourth_video');
+function sampleFromPaths(paths) {
+    const randomIndex = Math.floor(Math.random() * paths.length)
+    return paths[randomIndex]
+    // return paths[0]
+}
 
-    function displayVideos(groupIndex) {
+const state = {
+    annotations: null,
+    selected_annotation_type: 'all_gt_ks',
+    current_frame: 0,
+    keystate: null,
+    prev_keystate: null,
+    fps: null,
+    video_loaded: false
+}
 
-        const group = videoGroups[groupIndex].split(',');
-        first_vid_container.src = group[0];
-        second_vid_container.src = group[1];
-        third_vid_container.src = group[2];
-        fourth_vid_container.src = group[3];
+window.state = state
+
+function resetState() {
+    state.annotations = null
+    state.current_frame = 0
+    state.keystate = null
+    state.prev_keystate = null
+}
+
+function updateUI() {
+    if (!state.video_loaded) {
+        return
     }
 
-    document.getElementById('prev-button').addEventListener('click', () => {
-        currentGroupIndex = (currentGroupIndex - 1 + videoGroups.length) % videoGroups.length;
-        displayVideoGroup(currentGroupIndex);
+    const shouldUpdate = updateKeystate()
+    if (shouldUpdate) {
+        fillLabels()
+        fillCanvas()
+    }
+}
+
+function updateKeystate() {
+    const annotations = state.annotations[state.selected_annotation_type]
+    const keystates = annotations.map(label => label.keystate)
+    const newKeystate = keystates.find(keystate => state.current_frame <= keystate) // array is short, so binary search not needed
+    console.log(state.current_frame, newKeystate)
+    if (newKeystate !== state.keystate) {
+        state.prev_keystate = state.keystate
+        state.keystate = newKeystate
+        return true
+    }
+    return false
+}
+
+function fillLabels() {    
+    const labels = state.annotations[state.selected_annotation_type].find(label => label.keystate === state.keystate).labels
+    const labelsContainer = $('#nils-labels-container')
+    labelsContainer.empty()
+    labels.forEach(label => {
+        const labelElement = $('<div></div>').text(label)
+        labelsContainer.append(labelElement)
+    })
+}
+
+function fillCanvas() {
+    const video = $('#nils-video')[0]
+    const canvas = $('#nils-keystate')[0]
+    const ctx = canvas.getContext('2d')
+    ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight, 0, 0, video.videoWidth, video.videoHeight)
+}
+
+$(document).ready(async function() {
+    const paths = await loadPaths()
+    
+    async function sample() {
+        resetState()
+        const path = sampleFromPaths(paths)
+        const { annotations, videoLink } = await loadAnnotationsAndVideoLinkFromPath(path)
+        state.annotations = annotations
+        $('#nils-video source').attr('src', videoLink)
+        $('#nils-video')[0].load()
+        updateUI()
+    }
+
+    await sample()
+
+    $("#nils-sample-button").click(async function() {
+        await sample()
+    })
+
+    $("#nils-play-pause-button").click(function() {
+        if (!state.video_loaded) {
+            return
+        }
+
+        const video = $('#nils-video')[0]
+        if (video.paused) {
+            video.play()
+        } else {
+            video.pause()
+        }
+    })
+
+    // $("#nils-prev-key-button").click(function() {
+    //     if (!state.video_loaded) {
+    //         return
+    //     }
+    //     const annotations = state.annotations[state.selected_annotation_type]
+    //     const keystates = annotations.map(label => label.keystate)
+    //     const currentIndex = keystates.indexOf(state.keystate)
+    //     if (currentIndex > 0) {
+    //         state.current_frame = keystates[currentIndex - 1]
+    //         $('#nils-video')[0].currentTime = state.current_frame / state.fps
+    //         updateUI()
+    //     }
+    // })
+
+    // $("#nils-next-key-button").click(function() {
+    //     if (!state.video_loaded) {
+    //         return
+    //     }
+    //     const annotations = state.annotations[state.selected_annotation_type]
+    //     const keystates = annotations.map(label => label.keystate)
+    //     const currentIndex = keystates.indexOf(state.keystate)
+    //     if (currentIndex < keystates.length) {
+    //         state.current_frame = keystates[currentIndex]
+    //         $('#nils-video')[0].currentTime = state.current_frame / state.fps
+    //         updateUI()
+    //     }
+    // })
+
+    $('#nils-video').on('timeupdate', function() {
+        state.current_frame = Math.floor(this.currentTime * state.fps)
+        updateUI()
+    })
+
+    $('#nils-video').on('loadeddata', function() {
+        const video = $('#nils-video')[0]
+        const canvas = $('#nils-keystate')[0]
+        const videoWidth = video.videoWidth
+        const videoHeight = video.videoHeight
+        canvas.width = videoWidth
+        canvas.height = videoHeight
+
+        state.fps = state.annotations[state.selected_annotation_type].slice(-1)[0].keystate / video.duration
+        state.video_loaded = true
     });
+})
 
 
-    document.getElementById('next-button').addEventListener('click', () => {
-        currentGroupIndex = (currentGroupIndex + 1) % videoGroups.length;
-        displayVideoGroup(currentGroupIndex);
-    });
-
-    displayVideoGroup(currentGroupIndex);
-
-
-</script> -->
+</script>
