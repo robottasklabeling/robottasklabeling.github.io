@@ -11,6 +11,7 @@ paper: https://openreview.net/forum?id=EdVNB2kHv1
 # data: 
 ---
 
+##Technical Summary
 <video width="100%" controls muted loop playsinline>
     <source src="/static/video/NILS_new.mp4" type="video/mp4">
 </video>
