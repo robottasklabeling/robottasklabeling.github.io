@@ -299,3 +299,46 @@ $(document).ready(async function() {
 
 
 </script>
+
+
+<h2>Policy Rollouts</h2>
+These example showcase some tasks performed by a policy trained on our rea-kitchen dataset.
+<div class="columns is-centered has-text-centered">
+
+<div class="column is-half">
+    <video width="100%" autoplay muted loop playsinline>
+        <source src="/static/video/real_rollout/Archive/banana_in_sink.mp4" type="video/mp4">
+    </video>
+    <video width="100%" autoplay muted loop playsinline>
+        <source src="/static/video/real_rollout/Archive/fridge_fail.mp4" type="video/mp4">
+    </video>
+    <video width="100%" autoplay muted loop playsinline>
+        <source src="/static/video/real_rollout/Archive/microwave_door.mp4" type="video/mp4">
+    </video>
+    <video width="100%" autoplay muted loop playsinline>
+        <source src="/static/video/real_rollout/Archive/open_microwave.mp4" type="video/mp4">
+    </video>
+    <video width="100%" autoplay muted loop playsinline>
+        <source src="/static/video/real_rollout/Archive/open_oven_fail.mp4" type="video/mp4">
+    </video>
+</div>
+<div class="column is-half">
+    <video width="100%" autoplay muted loop playsinline>
+        <source src="/static/video/real_rollout/Archive/pot_to_the_rigth_2.mp4" type="video/mp4">
+    </video>
+    <video width="100%" autoplay muted loop playsinline>
+        <source src="/static/video/real_rollout/Archive/oven_fridge_fail.mp4" type="video/mp4">
+    </video>
+    <video width="100%" autoplay muted loop playsinline>
+        <source src="/static/video/real_rollout/Archive/pot_in_sink_2.mp4" type="video/mp4">
+    </video>
+    <video width="100%" autoplay muted loop playsinline>
+        <source src="/static/video/real_rollout/Archive/pot_in_sink.mp4" type="video/mp4">
+    </video>
+    <video width="100%" autoplay muted loop playsinline>
+        <source src="/static/video/real_rollout/Archive/pot_to_the_right.mp4" type="video/mp4">
+    </video>
+</div>
+
+
+</div>
