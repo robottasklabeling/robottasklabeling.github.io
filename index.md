@@ -25,7 +25,7 @@ A central challenge towards developing robots that can relate human language to 
 
 ---
 
-##Technical Summary
+## Technical Summary
 <video width="100%" controls muted loop playsinline>
     <source src="/static/video/NILS_new.mp4" type="video/mp4">
 </video>
