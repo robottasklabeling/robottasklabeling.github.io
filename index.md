@@ -11,9 +11,9 @@ paper: https://openreview.net/forum?id=EdVNB2kHv1
 # data: 
 ---
 
-<!-- <video width="100%" autoplay controls muted loop playsinline>
-    <source src="" type="video/mp4">
-</video> -->
+<video width="100%" controls muted loop playsinline>
+    <source src="/static/video/NILS_new.mp4" type="video/mp4">
+</video>
 
 ---
 
