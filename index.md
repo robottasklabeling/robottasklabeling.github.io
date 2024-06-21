@@ -6,19 +6,35 @@ title: "Scaling Robot Policy Learning via Zero-Shot Labeling with Foundation Mod
 authors: Anonymous Author(s)
 affiliations: Affiliation
 paper: https://openreview.net/forum?id=EdVNB2kHv1
-# video: 
-# code: 
-# data: 
+# video:
+# code:
+# data:
 ---
 
 
 ---
+
+<html data-theme="light">
+
+</html>
+
+<link rel="stylesheet" href="./static/css/bulma.min.css">
 
 <div class="columns is-centered has-text-centered">
     <div class="column is-four-fifths">
         <h2>Abstract</h2>
         <div class="content has-text-justified">
-A central challenge towards developing robots that can relate human language to their perception and actions is the scarcity of natural language annotations in diverse robot datasets. Moreover, robot policies that follow natural language instructions are typically trained on either templated language or expensive human-labeled instructions, hindering their scalability. To this end, we introduce <b>NILS</b>: <b>N</b>atural language <b>I</b>nstruction <b>L</b>abeling for <b>S</b>calability. NILS automatically labels uncurated, long-horizon robot data at scale in a zero-shot manner without any human intervention. NILS combines pre-trained vision-language foundation models in a sophisticated, carefully considered manner in order to detect objects in a scene, detect object-centric changes, segment tasks from large datasets of unlabelled interaction data and ultimately label behavior datasets. Evaluations on BridgeV2 and a kitchen play dataset show that NILS is able to autonomously annotate diverse robot demonstrations of unlabeled and unstructured datasets, while alleviating several shortcomings of crowdsourced human annotations.
+            A central challenge towards developing robots that can relate human language to their perception and actions
+            is the scarcity of natural language annotations in diverse robot datasets. Moreover, robot policies that
+            follow natural language instructions are typically trained on either templated language or expensive
+            human-labeled instructions, hindering their scalability. To this end, we introduce <b>NILS</b>:
+            <b>N</b>atural language <b>I</b>nstruction <b>L</b>abeling for <b>S</b>calability. NILS automatically labels
+            uncurated, long-horizon robot data at scale in a zero-shot manner without any human intervention. NILS
+            combines pre-trained vision-language foundation models in a sophisticated, carefully considered manner in
+            order to detect objects in a scene, detect object-centric changes, segment tasks from large datasets of
+            unlabelled interaction data and ultimately label behavior datasets. Evaluations on BridgeV2 and a kitchen
+            play dataset show that NILS is able to autonomously annotate diverse robot demonstrations of unlabeled and
+            unstructured datasets, while alleviating several shortcomings of crowdsourced human annotations.
         </div>
     </div>
 </div>
@@ -39,12 +55,16 @@ A central challenge towards developing robots that can relate human language to 
 ![MDT-V Overview](./static/image/lupus-example.png)
 Overview of the proposed NILS framework for labeling long-horizon robot play sequences
 in a zero-shot manner using an ensemble of pretrained expert models. NILS consists of three stages:
- - all relevant objects in the video are detected
- - object-centric changes are detected and collected
- - object change information is used to detect keystates and an LLM is prompted to generate a language label for the task
+- all relevant objects in the video are detected
+- object-centric changes are detected and collected
+- object change information is used to detect keystates and an LLM is prompted to generate a language label for the task
+
+
+
+
 
 <h2>Examples</h2>
-
+Press Play to see the results.
 <div class="columns is-centered has-text-centered">
     <div class="column is-half" id="nils-video-container">
         <h4>Video</h4>
@@ -81,264 +101,306 @@ in a zero-shot manner using an ensemble of pretrained expert models. NILS consis
         align-items: center;
         gap: 1em;
     }
+
     #nils-keystate {
         width: 100%;
     }
 </style>
 <script>
 
-const ANNOTATION_TYPES = [
-    'all_gt_ks',
-    'all',
-    'enable_detection_ensemblingenable_object_state_filteringenable_scene_graph_denoisingenable_detection_refinmentenable_object_centric_relations',
-    'enable_temporal_aggregationenable_detection_ensemblingenable_object_state_filteringenable_scene_graph_denoisingenable_detection_refinmentenable_object_centric_relationssimple_initial_object_detection',
-    'enable_temporal_aggregationenable_object_state_filteringenable_scene_graph_denoisingenable_object_centric_relations',
-    'gemini_pro',
-    'gpt4v',
-    'object_movement_gripper_close_scene_graph_object_state'
-]
+    const ANNOTATION_TYPES = [
+        'all_gt_ks',
+        'all',
+        'enable_detection_ensemblingenable_object_state_filteringenable_scene_graph_denoisingenable_detection_refinmentenable_object_centric_relations',
+        'enable_temporal_aggregationenable_detection_ensemblingenable_object_state_filteringenable_scene_graph_denoisingenable_detection_refinmentenable_object_centric_relationssimple_initial_object_detection',
+        'enable_temporal_aggregationenable_object_state_filteringenable_scene_graph_denoisingenable_object_centric_relations',
+        'gemini_pro',
+        'gpt4v',
+        'object_movement_gripper_close_scene_graph_object_state'
+    ]
 
-async function loadPaths() {
-    const response = await fetch('./static/bridge_vis/paths.txt')
-    const data = await response.text()
-    const paths = data.split('\n')
-    return paths
-}
+    async function loadPaths() {
+        const response = await fetch('./static/bridge_vis/paths.txt')
+        const data = await response.text()
+        const paths = data.split('\n')
+        return paths
+    }
 
-async function loadAnnotationsAndVideoLinkFromPath(path) {
-    const responses = ANNOTATION_TYPES.map((type) => 
-        fetch(`./static/bridge_vis/${path}/${type}.txt`)
-            .then(response => {
-                if (response.ok) {
-                    return response.text()
-                }
-                return false
-            })
-            .catch(err => false)
-    )
+    async function loadAnnotationsAndVideoLinkFromPath(path) {
+        const responses = ANNOTATION_TYPES.map((type) =>
+            fetch(`./static/bridge_vis/${path}/${type}.txt`)
+                .then(response => {
+                    if (response.ok) {
+                        return response.text()
+                    }
+                    return false
+                })
+                .catch(err => false)
+        )
 
-    const annotations_list = (await Promise.all(responses))
-        .map((response, index) => response ? [ANNOTATION_TYPES[index], processAnnotation(response)] : null)
-        .filter(item => item)
-    const annotations = Object.fromEntries(annotations_list)
+        const annotations_list = (await Promise.all(responses))
+            .map((response, index) => response ? [ANNOTATION_TYPES[index], processAnnotation(response)] : null)
+            .filter(item => item)
+        const annotations = Object.fromEntries(annotations_list)
 
-    const videoLink = `./static/bridge_vis/${path}/orig_conv.mp4`
-    return { annotations, videoLink }
-}
+        const videoLink = `./static/bridge_vis/${path}/orig_conv.mp4`
+        return { annotations, videoLink }
+    }
 
-function processAnnotation(fileContent) {
-    const lines = fileContent.split('\n')
-    const parsedData = lines.map(line => {
-        if (line === '') {
-            return null
-        }
-        const [_, keystate, labels] = line.match(/Keystate: (\d+) - Annotation: (\[.*\])/)
-        sanitized = labels // I hate this, why can't it be proper JSON, why are we using python print output uggh
-            .replace(/\['/g, '["')
-            .replace(/'\]/g, '"]')
-            .replace(/', '/g, '", "')
-            .replace(/", '/g, '", "')
-            .replace(/', "/g, '", "')
-        try {
-            return {
-                keystate: parseInt(keystate),
-                labels: JSON.parse(sanitized)
+    function processAnnotation(fileContent) {
+        const lines = fileContent.split('\n')
+        const parsedData = lines.map(line => {
+            if (line === '') {
+                return null
             }
-        } catch (e) {
-            console.error(keystate, labels, sanitized, e)
-            throw e
-        }
-    }).filter(item => item)
-    return parsedData
-}
-
-function sampleFromPaths(paths) {
-    const randomIndex = Math.floor(Math.random() * paths.length)
-    return paths[randomIndex]
-    // return paths[0]
-}
-
-const state = {
-    annotations: null,
-    selected_annotation_type: 'all_gt_ks',
-    current_frame: 0,
-    keystate: null,
-    prev_keystate: null,
-    fps: null,
-    video_loaded: false
-}
-
-window.state = state
-
-function resetState() {
-    state.annotations = null
-    state.current_frame = 0
-    state.keystate = null
-    state.prev_keystate = null
-}
-
-function updateUI() {
-    if (!state.video_loaded) {
-        return
+            const [_, keystate, labels] = line.match(/Keystate: (\d+) - Annotation: (\[.*\])/)
+            sanitized = labels // I hate this, why can't it be proper JSON, why are we using python print output uggh
+                .replace(/\['/g, '["')
+                .replace(/'\]/g, '"]')
+                .replace(/', '/g, '", "')
+                .replace(/", '/g, '", "')
+                .replace(/', "/g, '", "')
+            try {
+                return {
+                    keystate: parseInt(keystate),
+                    labels: JSON.parse(sanitized)
+                }
+            } catch (e) {
+                console.error(keystate, labels, sanitized, e)
+                throw e
+            }
+        }).filter(item => item)
+        return parsedData
     }
 
-    const shouldUpdate = updateKeystate()
-    if (shouldUpdate) {
-        fillLabels()
-        fillCanvas()
-    }
-}
-
-function updateKeystate() {
-    const annotations = state.annotations[state.selected_annotation_type]
-    const keystates = annotations.map(label => label.keystate)
-    const newKeystate = keystates.find(keystate => state.current_frame <= keystate) // array is short, so binary search not needed
-    console.log(state.current_frame, newKeystate)
-    if (newKeystate !== state.keystate) {
-        state.prev_keystate = state.keystate
-        state.keystate = newKeystate
-        return true
-    }
-    return false
-}
-
-function fillLabels() {    
-    const labels = state.annotations[state.selected_annotation_type].find(label => label.keystate === state.keystate).labels
-    const labelsContainer = $('#nils-labels-container')
-    labelsContainer.empty()
-    labels.forEach(label => {
-        const labelElement = $('<div></div>').text(label)
-        labelsContainer.append(labelElement)
-    })
-}
-
-function fillCanvas() {
-    const video = $('#nils-video')[0]
-    const canvas = $('#nils-keystate')[0]
-    const ctx = canvas.getContext('2d')
-    ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight, 0, 0, video.videoWidth, video.videoHeight)
-}
-
-$(document).ready(async function() {
-    const paths = await loadPaths()
-    
-    async function sample() {
-        resetState()
-        const path = sampleFromPaths(paths)
-        const { annotations, videoLink } = await loadAnnotationsAndVideoLinkFromPath(path)
-        state.annotations = annotations
-        $('#nils-video source').attr('src', videoLink)
-        $('#nils-video')[0].load()
-        updateUI()
+    function sampleFromPaths(paths) {
+        const randomIndex = Math.floor(Math.random() * paths.length)
+        return paths[randomIndex]
+        // return paths[0]
     }
 
-    await sample()
+    const state = {
+        annotations: null,
+        selected_annotation_type: 'all_gt_ks',
+        current_frame: 0,
+        keystate: null,
+        prev_keystate: null,
+        fps: null,
+        video_loaded: false
+    }
 
-    $("#nils-sample-button").click(async function() {
-        await sample()
-    })
+    window.state = state
 
-    $("#nils-play-pause-button").click(function() {
+    function resetState() {
+        state.annotations = null
+        state.current_frame = 0
+        state.keystate = null
+        state.prev_keystate = null
+    }
+
+    function updateUI() {
         if (!state.video_loaded) {
             return
         }
 
-        const video = $('#nils-video')[0]
-        if (video.paused) {
-            video.play()
-        } else {
-            video.pause()
+        const shouldUpdate = updateKeystate()
+        if (shouldUpdate) {
+            fillLabels()
+            fillCanvas()
         }
-    })
+    }
 
-    // $("#nils-prev-key-button").click(function() {
-    //     if (!state.video_loaded) {
-    //         return
-    //     }
-    //     const annotations = state.annotations[state.selected_annotation_type]
-    //     const keystates = annotations.map(label => label.keystate)
-    //     const currentIndex = keystates.indexOf(state.keystate)
-    //     if (currentIndex > 0) {
-    //         state.current_frame = keystates[currentIndex - 1]
-    //         $('#nils-video')[0].currentTime = state.current_frame / state.fps
-    //         updateUI()
-    //     }
-    // })
+    function updateKeystate() {
+        const annotations = state.annotations[state.selected_annotation_type]
+        const keystates = annotations.map(label => label.keystate)
+        const newKeystate = keystates.find(keystate => state.current_frame <= keystate) // array is short, so binary search not needed
+        console.log(state.current_frame, newKeystate)
+        if (newKeystate !== state.keystate) {
+            state.prev_keystate = state.keystate
+            state.keystate = newKeystate
+            return true
+        }
+        return false
+    }
 
-    // $("#nils-next-key-button").click(function() {
-    //     if (!state.video_loaded) {
-    //         return
-    //     }
-    //     const annotations = state.annotations[state.selected_annotation_type]
-    //     const keystates = annotations.map(label => label.keystate)
-    //     const currentIndex = keystates.indexOf(state.keystate)
-    //     if (currentIndex < keystates.length) {
-    //         state.current_frame = keystates[currentIndex]
-    //         $('#nils-video')[0].currentTime = state.current_frame / state.fps
-    //         updateUI()
-    //     }
-    // })
+    function fillLabels() {
+        const labels = state.annotations[state.selected_annotation_type].find(label => label.keystate === state.keystate).labels
+        const labelsContainer = $('#nils-labels-container')
+        labelsContainer.empty()
+        labels.forEach(label => {
+            const labelElement = $('<div></div>').text(label)
+            labelsContainer.append(labelElement)
+        })
+    }
 
-    $('#nils-video').on('timeupdate', function() {
-        state.current_frame = Math.floor(this.currentTime * state.fps)
-        updateUI()
-    })
-
-    $('#nils-video').on('loadeddata', function() {
+    function fillCanvas() {
         const video = $('#nils-video')[0]
         const canvas = $('#nils-keystate')[0]
-        const videoWidth = video.videoWidth
-        const videoHeight = video.videoHeight
-        canvas.width = videoWidth
-        canvas.height = videoHeight
+        const ctx = canvas.getContext('2d')
+        ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight, 0, 0, video.videoWidth, video.videoHeight)
+    }
 
-        state.fps = state.annotations[state.selected_annotation_type].slice(-1)[0].keystate / video.duration
-        state.video_loaded = true
-    });
-})
+    $(document).ready(async function () {
+        const paths = await loadPaths()
+
+        async function sample() {
+            resetState()
+            const path = sampleFromPaths(paths)
+            const { annotations, videoLink } = await loadAnnotationsAndVideoLinkFromPath(path)
+            state.annotations = annotations
+            $('#nils-video source').attr('src', videoLink)
+            $('#nils-video')[0].load()
+            updateUI()
+        }
+
+        await sample()
+
+        $("#nils-sample-button").click(async function () {
+            await sample()
+        })
+
+        $("#nils-play-pause-button").click(function () {
+            if (!state.video_loaded) {
+                return
+            }
+
+            const video = $('#nils-video')[0]
+            if (video.paused) {
+                video.play()
+            } else {
+                video.pause()
+            }
+        })
+
+        // $("#nils-prev-key-button").click(function() {
+        //     if (!state.video_loaded) {
+        //         return
+        //     }
+        //     const annotations = state.annotations[state.selected_annotation_type]
+        //     const keystates = annotations.map(label => label.keystate)
+        //     const currentIndex = keystates.indexOf(state.keystate)
+        //     if (currentIndex > 0) {
+        //         state.current_frame = keystates[currentIndex - 1]
+        //         $('#nils-video')[0].currentTime = state.current_frame / state.fps
+        //         updateUI()
+        //     }
+        // })
+
+        // $("#nils-next-key-button").click(function() {
+        //     if (!state.video_loaded) {
+        //         return
+        //     }
+        //     const annotations = state.annotations[state.selected_annotation_type]
+        //     const keystates = annotations.map(label => label.keystate)
+        //     const currentIndex = keystates.indexOf(state.keystate)
+        //     if (currentIndex < keystates.length) {
+        //         state.current_frame = keystates[currentIndex]
+        //         $('#nils-video')[0].currentTime = state.current_frame / state.fps
+        //         updateUI()
+        //     }
+        // })
+
+        $('#nils-video').on('timeupdate', function () {
+            state.current_frame = Math.floor(this.currentTime * state.fps)
+            updateUI()
+        })
+
+        $('#nils-video').on('loadeddata', function () {
+            const video = $('#nils-video')[0]
+            const canvas = $('#nils-keystate')[0]
+            const videoWidth = video.videoWidth
+            const videoHeight = video.videoHeight
+            canvas.width = videoWidth
+            canvas.height = videoHeight
+
+            state.fps = state.annotations[state.selected_annotation_type].slice(-1)[0].keystate / video.duration
+            state.video_loaded = true
+        });
+    })
 
 
 </script>
 
 
 <h2>Policy Rollouts</h2>
-These example showcase some tasks performed by a policy trained on our rea-kitchen dataset.
-<div class="columns is-centered has-text-centered">
+These example showcase some tasks performed by a policy trained on our real-kitchen dataset.
 
-<div class="column is-half">
-    <video width="100%" autoplay muted loop playsinline>
-        <source src="/static/video/real_rollout/Archive/banana_in_sink.mp4" type="video/mp4">
-    </video>
-    <video width="100%" autoplay muted loop playsinline>
-        <source src="/static/video/real_rollout/Archive/fridge_fail.mp4" type="video/mp4">
-    </video>
-    <video width="100%" autoplay muted loop playsinline>
-        <source src="/static/video/real_rollout/Archive/microwave_door.mp4" type="video/mp4">
-    </video>
-    <video width="100%" autoplay muted loop playsinline>
-        <source src="/static/video/real_rollout/Archive/open_microwave.mp4" type="video/mp4">
-    </video>
-    <video width="100%" autoplay muted loop playsinline>
-        <source src="/static/video/real_rollout/Archive/open_oven_fail.mp4" type="video/mp4">
-    </video>
-</div>
-<div class="column is-half">
-    <video width="100%" autoplay muted loop playsinline>
-        <source src="/static/video/real_rollout/Archive/pot_to_the_rigth_2.mp4" type="video/mp4">
-    </video>
-    <video width="100%" autoplay muted loop playsinline>
-        <source src="/static/video/real_rollout/Archive/oven_fridge_fail.mp4" type="video/mp4">
-    </video>
-    <video width="100%" autoplay muted loop playsinline>
-        <source src="/static/video/real_rollout/Archive/pot_in_sink_2.mp4" type="video/mp4">
-    </video>
-    <video width="100%" autoplay muted loop playsinline>
-        <source src="/static/video/real_rollout/Archive/pot_in_sink.mp4" type="video/mp4">
-    </video>
-    <video width="100%" autoplay muted loop playsinline>
-        <source src="/static/video/real_rollout/Archive/pot_to_the_right.mp4" type="video/mp4">
-    </video>
-</div>
+<div class="columns is-centered has-text-centered"> 
+<div class="column is-four-fifths is-centered">
+<div class="columns is-centered" width = "10%">
+    <div class="column">
+        <video autoplay muted loop playsinline>
+            <source src="/static/video/real_rollout/Archive/banana_in_sink.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="column">
+        <video autoplay loop playsinline>
+            <source src="/static/video/real_rollout/Archive/fridge_fail.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="column">
+        <video autoplay muted loop playsinline>
+            <source src="/static/video/real_rollout/Archive/microwave_door.mp4" type="video/mp4">
+        </video>
+    </div>
 
 
 </div>
+
+
+<div class="columns" is-centered>
+
+    <div class="column">
+        <video autoplay muted loop playsinline>
+            <source src="/static/video/real_rollout/Archive/open_microwave.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="column">
+        <video autoplay muted loop playsinline>
+            <source src="/static/video/real_rollout/Archive/open_oven_fail.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="column">
+        <video autoplay muted loop playsinline>
+            <source src="/static/video/real_rollout/Archive/pot_to_the_rigth_2.mp4" type="video/mp4">
+        </video>
+    </div>
+
+</div>
+
+<div class="columns" is-centered>
+
+    <div class="column">
+        <video autoplay muted loop playsinline>
+            <source src="/static/video/real_rollout/Archive/oven_fridge_fail.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="column">
+        <video autoplay muted loop playsinline>
+            <source src="/static/video/real_rollout/Archive/pot_in_sink_2.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="column">
+        <video autoplay muted loop playsinline>
+            <source src="/static/video/real_rollout/Archive/pot_in_sink.mp4" type="video/mp4">
+        </video>
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- <div class="column">
+<video  autoplay muted loop playsinline>
+    <source src="/static/video/real_rollout/Archive/pot_to_the_right.mp4" type="video/mp4">
+</video>
+</div> -->
