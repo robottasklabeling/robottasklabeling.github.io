@@ -62,7 +62,7 @@ in a zero-shot manner using an ensemble of pretrained expert models. NILS consis
 
 
 
-
+---
 <h2>Examples</h2>
 Press Play to see the results.
 <div class="columns is-centered has-text-centered">
@@ -78,7 +78,7 @@ Press Play to see the results.
     </div>
 
 
-   
+
     <div class="column is-one-third ">
         <h4>Scene Annotations</h4>
 
@@ -191,11 +191,11 @@ Press Play to see the results.
             }
             const [_, keystate, labels] = line.match(/Keystate: (\d+) - Annotation: (\[.*\])/)
             sanitized = labels // I hate this, why can't it be proper JSON, why are we using python print output uggh
-                .replace(/\['/g, '["')
-                .replace(/'\]/g, '"]')
-                .replace(/', '/g, '", "')
-                .replace(/", '/g, '", "')
-                .replace(/', "/g, '", "')
+            .replace(/\['/g, '["')
+            .replace(/'\]/g, '"]')
+            .replace(/', '/g, '", "')
+            .replace(/", '/g, '", "')
+            .replace(/', "/g, '", "')
             try {
                 return {
                     keystate: parseInt(keystate),
@@ -291,7 +291,7 @@ Press Play to see the results.
             //const masks_link = depth_link
 
 
-            
+
 
             state.annotations = annotations
             $('#nils-video source').attr('src', videoLink)
@@ -394,8 +394,118 @@ Press Play to see the results.
 
 
 </script>
+---
+<h2>Failure Cases</h2>
+<div class="columns is-centered has-text-centered">
+    <div class="column">
+        <div class="fixed-grid">
+            <div class="grid is-size-7">
+                <div class="cell is-col-span-1">
+                    <div class="columns is-centered has-text-centered is-vcentered">
+                        <div class="column is-half is-vcentered">
 
+                            <img src="./static/bridge_vis/datacol1_toykitchen1_many_skills_0/split/1.gif.gif"
+                                width="100%">
+                        </div>
+                        <div class="column is-half">
 
+                            Move the <span style="color: #ff0000">fork</span> forward <br>
+                            Move the <span style="color: #ff0000">fork</span> to the left <br>
+                            Move the <span style="color: #ff0000">fork</span> away from the round object <br>
+                            Move the <span style="color: #ff0000">fork</span> to the left
+                        </div>
+                    </div>
+
+                </div>
+                <div class="cell is-col-span-1">
+                    <div class="columns is-centered has-text-centered is-vcentered">
+                        <div class="column is-half is-vcentered">
+
+                            <img src="./static/bridge_vis/datacol1_toykitchen6_pnp_sweep_00/split/18.gif.gif"
+                                width="100%">
+                        </div>
+                        <div class="column is-half">
+                            Move the pan to the <span style="color: #ff0000">left</span> of the stovetop <br>
+                            Clean the pan with the kitchen towel <br>
+                            Place the pan on top of the kitchen towel, next to the chicken wing and spoon <br>
+                            Move the pan 29.5 pixels to the left and 79.5 pixels forward
+                        </div>
+                    </div>
+
+                </div>
+                <div class="cell is-col-span-1">
+                    <div class="columns is-centered has-text-centered is-vcentered">
+                        <div class="column is-half is-vcentered">
+
+                            <img src="./static/bridge_vis/datacol2_folding_table_fold_cloth_pnp_01/split/4.gif.gif"
+                                width="100%">
+                        </div>
+                        <div class="column is-half">
+
+                            <span style="color: #ff0000">Wipe the table </span><br>
+                            <span style="color: #ff0000">Dust the lamp </span><br>
+                            <span style="color: #ff0000">Polish the silverware </span><br>
+                            <span style="color: #ff0000">Wipe up the spill </span><br>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="cell is-col-span-1">
+                    <div class="columns is-centered has-text-centered is-vcentered">
+                        <div class="column is-half is-vcentered">
+
+                            <img src="./static/bridge_vis/datacol2_folding_table_pnp_push_sweep_00/split/2.gif.gif"
+                                width="100%">
+                        </div>
+                        <div class="column is-half">
+
+                            Move the toy corn to the left of the blue cup<br>
+                            Place the toy corn in the center of the table, <span style="color: #ff0000">next to the blue
+                                cup</span><br>
+                            Shift the toy corn 130.5 pixels to the right<br>
+                            Relocate the toy corn from the left side of the table to the center
+                        </div>
+                    </div>
+
+                </div>
+                <div class="cell is-col-span-1">
+                    <div class="columns is-centered has-text-centered is-vcentered">
+                        <div class="column is-half is-vcentered">
+
+                            <img src="./static/bridge_vis/datacol2_laundry_machine_pnp_push_sweep_00/split/2.gif.gif"
+                                width="100%">
+                        </div>
+                        <div class="column is-half">
+                            Move the soda can to the right and place it <span style="color: #ff0000">next to the toy mouse</span> <br>
+                            Pick up the soda can and place it to the  <span style="color: #ff0000">left of the toy mouse </span> <br>
+                            Relocate the soda can from its initial position to the <span style="color: #ff0000">left of the toy mouse </span><br>
+                            Place the soda can <span style="color: #ff0000">next to the toy mouse on its left side</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="cell is-col-span-1">
+                    <div class="columns is-centered has-text-centered is-vcentered">
+                        <div class="column is-half is-vcentered">
+
+                            <img src="./static/bridge_vis/datacol2_tabletop_dark_wood_many_skills_00/split/7.gif.gif"
+                                width="100%">
+                        </div>
+                        <div class="column is-half">
+
+                            Remove the pot lid from the <span style="color: #ff0000"> sausage toy </span> <br>
+                            Lift the pot lid off the <span style="color: #ff0000"> sausage toy </span> <br>
+                            Take the pot lid off the <span style="color: #ff0000"> sausage toy </span> <br>
+                            Uncover the <span style="color: #ff0000"> sausage toy </span> by removing the pot lid <br>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+---
 <h2>Policy Rollouts</h2>
 These example showcase some tasks performed by a policy trained on our real-kitchen dataset.
 
