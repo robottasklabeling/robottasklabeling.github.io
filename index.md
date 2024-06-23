@@ -66,15 +66,48 @@ in a zero-shot manner using an ensemble of pretrained expert models. NILS consis
 <h2>Examples</h2>
 Press Play to see the results.
 <div class="columns is-centered has-text-centered">
-    <div class="column is-half" id="nils-video-container">
+    <div class="column is-one-third " id="nils-video-container">
         <h4>Video</h4>
         <video id="nils-video" width="100%" muted playsinline>
             <source src="" type="video/mp4">
         </video>
     </div>
-    <div class="column is-half">
+    <div class="column is-one-third ">
         <h4>Last Keystate</h4>
         <canvas id="nils-keystate" width="100%" height="100%"></canvas>
+    </div>
+
+
+   
+    <div class="column is-one-third ">
+        <h4>Scene Annotations</h4>
+
+        <div class="fixed-grid">
+            <div class="grid">
+
+                <div class="cell is-col-span-1">
+                    <video id="nils-video-depth" width="100%" muted playsinline>
+                        <source src="" type="video/mp4">
+                    </video>
+                </div>
+                <div class="cell is-col-span-1">
+                    <video id="nils-video-boxes" width="100%" muted playsinline>
+                        <source src="" type="video/mp4">
+                    </video>
+                </div>
+                <div class="cell is-col-span-1">
+                    <video id="nils-video-masks" width="100%" muted playsinline>
+                        <source src="" type="video/mp4">
+                    </video>
+                </div>
+                <div class="cell is-col-span-1">
+                    <video id="nils-video-robot" width="100%" muted playsinline>
+                        <source src="" type="video/mp4">
+                    </video>
+                </div>
+
+            </div>
+        </div>
     </div>
 </div>
 <div class="columns is-centered has-text-centered">
@@ -144,7 +177,10 @@ Press Play to see the results.
         const annotations = Object.fromEntries(annotations_list)
 
         const videoLink = `./static/bridge_vis/${path}/orig_conv.mp4`
-        return { annotations, videoLink }
+
+        const base_path = `./static/bridge_vis/${path}/`
+
+        return { annotations, videoLink, base_path }
     }
 
     function processAnnotation(fileContent) {
@@ -246,10 +282,31 @@ Press Play to see the results.
         async function sample() {
             resetState()
             const path = sampleFromPaths(paths)
-            const { annotations, videoLink } = await loadAnnotationsAndVideoLinkFromPath(path)
+            const { annotations, videoLink, base_path } = await loadAnnotationsAndVideoLinkFromPath(path)
+
+            const depth_link = base_path + 'annotated_frames/depth/depth_conv.mp4'
+            const boxes_link = base_path + 'annotated_frames/annotated_conv.mp4'
+            const masks_link = base_path + 'masks.mp4'
+            const robot_link = base_path + 'annotated_frames/robot/robot_conv.mp4'
+            //const masks_link = depth_link
+
+
+            
+
             state.annotations = annotations
             $('#nils-video source').attr('src', videoLink)
+
+            $('#nils-video-depth source').attr('src', depth_link)
+            $('#nils-video-boxes source').attr('src', boxes_link)
+            $('#nils-video-masks source').attr('src', masks_link)
+            $('#nils-video-robot source').attr('src', robot_link)
+
             $('#nils-video')[0].load()
+            $('#nils-video-depth')[0].load()
+            $('#nils-video-boxes')[0].load()
+            $('#nils-video-masks')[0].load()
+            $('#nils-video-robot')[0].load()
+
             updateUI()
         }
 
@@ -265,10 +322,27 @@ Press Play to see the results.
             }
 
             const video = $('#nils-video')[0]
+
+            const video_depth = $('#nils-video-depth')[0]
+            const video_boxes = $('#nils-video-boxes')[0]
+            const video_masks = $('#nils-video-masks')[0]
+            const video_robot = $('#nils-video-robot')[0]
+
+
             if (video.paused) {
                 video.play()
+                video_depth.play()
+                video_boxes.play()
+                video_masks.play()
+                video_robot.play()
+
             } else {
                 video.pause()
+                video_depth.pause()
+                video_boxes.pause()
+                video_masks.pause()
+                video_robot.pause()
+
             }
         })
 
@@ -325,76 +399,76 @@ Press Play to see the results.
 <h2>Policy Rollouts</h2>
 These example showcase some tasks performed by a policy trained on our real-kitchen dataset.
 
-<div class="columns is-centered has-text-centered"> 
-<div class="column is-four-fifths is-centered">
-<div class="columns is-centered" width = "10%">
-    <div class="column">
-        <video autoplay muted loop playsinline>
-            <source src="/static/video/real_rollout/Archive/banana_in_sink.mp4" type="video/mp4">
-        </video>
+<div class="columns is-centered has-text-centered">
+    <div class="column is-four-fifths is-centered">
+        <div class="columns is-centered" width="10%">
+            <div class="column">
+                <video autoplay muted loop playsinline>
+                    <source src="/static/video/real_rollout/Archive/banana_in_sink.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="column">
+                <video autoplay loop playsinline>
+                    <source src="/static/video/real_rollout/Archive/fridge_fail.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="column">
+                <video autoplay muted loop playsinline>
+                    <source src="/static/video/real_rollout/Archive/microwave_door.mp4" type="video/mp4">
+                </video>
+            </div>
+
+
+        </div>
+
+
+        <div class="columns" is-centered>
+
+            <div class="column">
+                <video autoplay muted loop playsinline>
+                    <source src="/static/video/real_rollout/Archive/open_microwave.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="column">
+                <video autoplay muted loop playsinline>
+                    <source src="/static/video/real_rollout/Archive/open_oven_fail.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="column">
+                <video autoplay muted loop playsinline>
+                    <source src="/static/video/real_rollout/Archive/pot_to_the_rigth_2.mp4" type="video/mp4">
+                </video>
+            </div>
+
+        </div>
+
+        <div class="columns" is-centered>
+
+            <div class="column">
+                <video autoplay muted loop playsinline>
+                    <source src="/static/video/real_rollout/Archive/oven_fridge_fail.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="column">
+                <video autoplay muted loop playsinline>
+                    <source src="/static/video/real_rollout/Archive/pot_in_sink_2.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="column">
+                <video autoplay muted loop playsinline>
+                    <source src="/static/video/real_rollout/Archive/pot_in_sink.mp4" type="video/mp4">
+                </video>
+            </div>
+
+        </div>
+
     </div>
-
-    <div class="column">
-        <video autoplay loop playsinline>
-            <source src="/static/video/real_rollout/Archive/fridge_fail.mp4" type="video/mp4">
-        </video>
-    </div>
-
-    <div class="column">
-        <video autoplay muted loop playsinline>
-            <source src="/static/video/real_rollout/Archive/microwave_door.mp4" type="video/mp4">
-        </video>
-    </div>
-
-
-</div>
-
-
-<div class="columns" is-centered>
-
-    <div class="column">
-        <video autoplay muted loop playsinline>
-            <source src="/static/video/real_rollout/Archive/open_microwave.mp4" type="video/mp4">
-        </video>
-    </div>
-
-    <div class="column">
-        <video autoplay muted loop playsinline>
-            <source src="/static/video/real_rollout/Archive/open_oven_fail.mp4" type="video/mp4">
-        </video>
-    </div>
-
-    <div class="column">
-        <video autoplay muted loop playsinline>
-            <source src="/static/video/real_rollout/Archive/pot_to_the_rigth_2.mp4" type="video/mp4">
-        </video>
-    </div>
-
-</div>
-
-<div class="columns" is-centered>
-
-    <div class="column">
-        <video autoplay muted loop playsinline>
-            <source src="/static/video/real_rollout/Archive/oven_fridge_fail.mp4" type="video/mp4">
-        </video>
-    </div>
-
-    <div class="column">
-        <video autoplay muted loop playsinline>
-            <source src="/static/video/real_rollout/Archive/pot_in_sink_2.mp4" type="video/mp4">
-        </video>
-    </div>
-
-    <div class="column">
-        <video autoplay muted loop playsinline>
-            <source src="/static/video/real_rollout/Archive/pot_in_sink.mp4" type="video/mp4">
-        </video>
-    </div>
-
-</div>
-
-</div>
 
 </div>
 
