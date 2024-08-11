@@ -506,6 +506,10 @@ Press Play to see the results.
     </div>
 </div>
 ---
+<h2>Example Annotations</h2>
+<iframe style="width: 100%; aspect-ratio: 16 / 9;" src="https://www.youtube-nocookie.com/embed/o22Y-kc8gEk?si=DagniLJeccE4w7AQ" title="YouTube video player" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+---
 <h2>Policy Rollouts</h2>
 These example showcase some tasks performed by a policy trained on our real-kitchen dataset.
 
