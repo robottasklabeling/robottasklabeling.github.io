@@ -476,11 +476,13 @@ Following examples are rollouts of an Octo policy trained on the Bridge dataset 
                 <video autoplay muted loop playsinline>
                     <source src="/static/video/bridge/ra.mp4" type="video/mp4">
                 </video>
+                <p>Place the green spoon on top of the rag</p>
             </div>
             <div class="column">
                 <video autoplay muted loop playsinline>
                     <source src="/static/video/bridge/rb.mp4" type="video/mp4">
                 </video>
+                <p>Place the green spoon on top of the rag</p>
             </div>
         </div>
         <div class="columns is-centered">
@@ -488,11 +490,13 @@ Following examples are rollouts of an Octo policy trained on the Bridge dataset 
                 <video autoplay muted loop playsinline>
                     <source src="/static/video/bridge/rc.mp4" type="video/mp4">
                 </video>
+                <p>Place the sushi inside the bowl</p>
             </div>
             <div class="column">
                 <video autoplay muted loop playsinline>
                     <source src="/static/video/bridge/rd.mp4" type="video/mp4">
                 </video>
+                <p>Place the sushi inside the bowl</p>
             </div>
         </div>
         <div class="columns is-centered">
@@ -500,11 +504,13 @@ Following examples are rollouts of an Octo policy trained on the Bridge dataset 
                 <video autoplay muted loop playsinline>
                     <source src="/static/video/bridge/sa.mp4" type="video/mp4">
                 </video>
+                <p>Place the yellow spoon on top the blue cloth</p>
             </div>
             <div class="column">
                 <video autoplay muted loop playsinline>
                     <source src="/static/video/bridge/sb.mp4" type="video/mp4">
                 </video>
+                <p>Relocate the yellow spoon from the table to inside the blue cloth</p>
             </div>
         </div>
     </div>
