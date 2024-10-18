@@ -8,7 +8,7 @@ affiliations: <sup>1</sup><a href="https://www.irl.iar.kit.edu/">KIT Intuitive R
 venue: "CoRL 2024"
 paper: https://openreview.net/forum?id=EdVNB2kHv1
 # video:
-code: https://github.com/intuitive-robots/NILS
+# code: https://github.com/intuitive-robots/NILS
 data: https://huggingface.co/datasets/holgerson/fractal_NILS
 ---
 
