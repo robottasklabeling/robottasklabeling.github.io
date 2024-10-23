@@ -643,3 +643,15 @@ Following examples are rollouts of an Octo policy trained on the BridgeV2 datase
     <source src="/static/video/real_rollout/Archive/pot_to_the_right.mp4" type="video/mp4">
 </video>
 </div> -->
+
+## Citation
+```
+@inproceedings{
+blank2024scaling,
+title={Scaling Robot Policy Learning via Zero-Shot Labeling with Foundation Models},
+author={Nils Blank and Moritz Reuss and Marcel R{\"u}hle and {\"O}mer Erdin{\c{c}} Ya{\u{g}}murlu and Fabian Wenzel and Oier Mees and Rudolf Lioutikov},
+booktitle={8th Annual Conference on Robot Learning},
+year={2024},
+url={https://openreview.net/forum?id=EdVNB2kHv1}
+}
+```
