@@ -10,7 +10,7 @@ paper: https://openreview.net/forum?id=EdVNB2kHv1
 # video:
 # code: https://github.com/intuitive-robots/NILS
 data: https://huggingface.co/datasets/holgerson/fractal_NILS
-data: https://huggingface.co/datasets/holgerson/bridge_NILS
+data_bridge: https://huggingface.co/datasets/holgerson/bridge_NILS
 ---
 
 
