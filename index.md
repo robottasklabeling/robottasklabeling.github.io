@@ -9,8 +9,8 @@ venue: "CoRL 2024"
 paper: https://openreview.net/forum?id=EdVNB2kHv1
 # video:
 # code: https://github.com/intuitive-robots/NILS
-data: https://huggingface.co/datasets/holgerson/fractal_NILS
-data_bridge: https://huggingface.co/collections/holgerson/nils-datasets-671b4cc18750e04558d7f98f
+data: https://huggingface.co/collections/holgerson/nils-datasets-671b4cc18750e04558d7f98f
+# data_bridge: https://huggingface.co/collections/holgerson/nils-datasets-671b4cc18750e04558d7f98f
 ---
 
 
