@@ -6,7 +6,7 @@ title: "Scaling Robot Policy Learning via Zero-Shot Labeling with Foundation Mod
 authors: <a href="https://nilsblank.github.io/">Nils Blank<sup>1</sup></a>, <a href="https://mbreuss.github.io/">Moritz Reuss</a><sup>1</sup>, Marcel Rühle<sup>1</sup>, Ömer Erdinç Yağmurlu<sup>1</sup>, Fabian Wenzel<sup>1</sup>, <a href="https://www.oiermees.com/">Oier Mees</a><sup>2</sup>, <a href="https://rudolf.intuitive-robots.net/">Rudolf Lioutikov</a><sup>1</sup>
 affiliations: <sup>1</sup><a href="https://www.irl.iar.kit.edu/">KIT Intuitive Robots Lab</a>, <sup>2</sup>UC Berkeley
 venue: "CoRL 2024"
-paper: https://openreview.net/forum?id=EdVNB2kHv1
+paper: https://arxiv.org/abs/2410.17772
 # video:
 # code: https://github.com/intuitive-robots/NILS
 data: https://huggingface.co/collections/holgerson/nils-datasets-671b4cc18750e04558d7f98f
